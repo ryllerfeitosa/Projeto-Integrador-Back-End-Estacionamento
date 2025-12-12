@@ -1,26 +1,19 @@
 package br.senai.sp.jandira.projetointegradorbackendestacionamento.ui;
+
+
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.TelaPrincipal;
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.model.DadosDoCliente;
-
-
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.repository.ClienteRepository;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-import java.util.UUID;
 
 public class RegistrarEntrada extends VBox {
 
@@ -28,12 +21,15 @@ public class RegistrarEntrada extends VBox {
         telaDeRegistro();
     }
 
-        TextField nomeUser;   //Variavel para guardar o nome do usuario de forma global do arquivo (como os subsequentes)
-        TextField veiculoCliente;
-        TextField placaCliente;
-        public String nome;
-        public String placa;
-        public String carro;
+    ClienteRepository clienteRepository;
+    DadosDoCliente cliente;
+
+    TextField nomeUser;   //Variavel para guardar o nome do usuario de forma global do arquivo (como os subsequentes)
+    TextField veiculoCliente;
+    TextField placaCliente;
+    public String nome;
+    public String placa;
+    public String carro;
 
     public void telaDeRegistro() {
 
@@ -196,23 +192,30 @@ public class RegistrarEntrada extends VBox {
     }
 
     //Configurando funções dos botões
-    public void registrarEntrada() {
-
-            placa = placaCliente.getText();
-            carro = veiculoCliente.getText();
-            nome   = nomeUser.getText();
-
-
+    public void fechar() {
             if (placa.isEmpty() || carro.isEmpty() || nome.isEmpty()) {
                 placaCliente.setPromptText("Insira a Placa");
                 veiculoCliente.setPromptText("Insira o Veículo");
                 nomeUser.setPromptText("Insira o nome ");
                 return;
             }
-
-            ClienteRepository clienteRepository = new ClienteRepository();
-            clienteRepository.gravarDados();
     }
+    public void registrarEntrada() {
+
+
+
+
+
+        cliente.carro = veiculoCliente.getText();
+        cliente.nome = nomeUser.getText();
+        cliente.placa = placaCliente.getText();
+
+
+
+        clienteRepository.gravarCliente(cliente);
+
+    }
+
 
 
 }

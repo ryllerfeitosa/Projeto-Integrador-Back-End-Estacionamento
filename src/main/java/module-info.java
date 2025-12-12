@@ -4,6 +4,7 @@ module br.senai.sp.jandira.projetointegradorbackendestacionamento {
     requires javafx.graphics;
 
 
+
     opens br.senai.sp.jandira.projetointegradorbackendestacionamento to javafx.fxml;
     exports br.senai.sp.jandira.projetointegradorbackendestacionamento;
 }

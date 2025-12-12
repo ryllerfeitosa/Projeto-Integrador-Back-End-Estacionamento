@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.projetointegradorbackendestacionamento;
 
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.ui.Pagamentos;
+import br.senai.sp.jandira.projetointegradorbackendestacionamento.ui.RegistrarEntrada;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -136,6 +137,10 @@ public class TelaPrincipal extends Application {
 
         cadastrar.setOnAction(click -> {
             //Chamar a classe para cadastro
+            RegistrarEntrada registrarEntrada = new RegistrarEntrada();
+            Scene novoEntrada = new Scene(registrarEntrada,1440,1024);
+            Stage stageExistente = (Stage) cadastrar.getScene().getWindow();
+            stageExistente.setScene(novoEntrada);
         });
 
 

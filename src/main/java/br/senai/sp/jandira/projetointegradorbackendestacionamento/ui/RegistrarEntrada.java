@@ -12,17 +12,17 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class RegistrarEntrada extends VBox {
 
-    public RegistrarEntrada() {
-        telaDeRegistro();
-    }
-
+    Path arquivo = Paths.get("C:\\Users\\rylle\\Downloads\\dadosDosClientes\\dados.csv");
     ClienteRepository clienteRepository;
-    DadosDoCliente cliente;
+    DadosDoCliente dadosDoCliente;
+
 
     TextField nomeUser;   //Variavel para guardar o nome do usuario de forma global do arquivo (como os subsequentes)
     TextField veiculoCliente;
@@ -31,7 +31,14 @@ public class RegistrarEntrada extends VBox {
     public String placa;
     public String carro;
 
+    public RegistrarEntrada() {
+        telaDeRegistro();
+    }
+
     public void telaDeRegistro() {
+
+        clienteRepository = new ClienteRepository();
+        dadosDoCliente = new DadosDoCliente();
 
         this.setStyle("-fx-background-color: #F0D49B;");
 
@@ -202,17 +209,10 @@ public class RegistrarEntrada extends VBox {
     }
     public void registrarEntrada() {
 
-
-
-
-
-        cliente.carro = veiculoCliente.getText();
-        cliente.nome = nomeUser.getText();
-        cliente.placa = placaCliente.getText();
-
-
-
-        clienteRepository.gravarCliente(cliente);
+        dadosDoCliente.carro = veiculoCliente.getText();
+        dadosDoCliente.nome = nomeUser.getText();
+        dadosDoCliente.placa = placaCliente.getText();
+        clienteRepository.gravarCliente(dadosDoCliente);
 
     }
 

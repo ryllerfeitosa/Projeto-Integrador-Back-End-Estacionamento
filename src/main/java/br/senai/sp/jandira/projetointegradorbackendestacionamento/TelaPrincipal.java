@@ -1,5 +1,7 @@
 package br.senai.sp.jandira.projetointegradorbackendestacionamento;
 
+import br.senai.sp.jandira.projetointegradorbackendestacionamento.model.DadosDoCliente;
+import br.senai.sp.jandira.projetointegradorbackendestacionamento.repository.ClienteRepository;
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.ui.Pagamentos;
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.ui.RegistrarEntrada;
 import javafx.application.Application;
@@ -20,7 +22,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+
 
 public class TelaPrincipal extends Application {
 
@@ -70,24 +74,10 @@ public class TelaPrincipal extends Application {
         tituloListaDeVeiculos.setMaxWidth(Double.MAX_VALUE);
         headerListaDeVeiculos.getChildren().add(tituloListaDeVeiculos);
 
-        //Criar o a lista de veiculos em forma de formulario
-        GridPane gridFormulario = new GridPane();
-        gridFormulario.setPadding(new Insets(20));
-        gridFormulario.setVgap(10);    // brecha/espaçamento entre as linhas
-        gridFormulario.setHgap(10);    // brecha/espaçamento entre as as colunas
-        gridFormulario.setStyle("-fx-padding: 10; -fx-background-color: #E8E8E8;");
 
-        Label[] labels = new Label[5]; // vetor com 5 posições
-        labels[0] = new Label("Item 1");
-        labels[1] = new Label("Item 2");
-        labels[2] = new Label("Item 3");
-        labels[3] = new Label("Item 4");
-        labels[4] = new Label("Item 5");
-        gridFormulario.add(labels[0], 0, 0);     //Numero da coluna e numero da linha
-        gridFormulario.add(labels[1], 0, 1);     //Numero da coluna e numero da linha
-        gridFormulario.add(labels[2], 0, 2);     //Numero da coluna e numero da linha
-        gridFormulario.add(labels[3], 0, 3);     //Numero da coluna e numero da linha
-        gridFormulario.add(labels[4], 0, 4);     //Numero da coluna e numero da linha
+        // Criar o tableview para visualizar o nome, modelo, placa, hora de entrada
+
+
 
         VBox vboxDosBotoes = new VBox();
 
@@ -209,7 +199,7 @@ public class TelaPrincipal extends Application {
         vboxDosBotoes.getChildren().addAll(cadastrar, registrarSaida, boxbotaoSair);    //Adicionando os botoes na vBoxDosBotoes
         vboxDosBotoes.setSpacing(50);
         root.getChildren().addAll(header, main);
-        listaDeVeiculos.getChildren().addAll(headerListaDeVeiculos, gridFormulario);
+        listaDeVeiculos.getChildren().addAll(headerListaDeVeiculos);
 
 
         stage.setTitle("Estacionamento");

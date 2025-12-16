@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 
 public class RegistrarEntrada extends VBox {
 
-    Path arquivo = Paths.get("C:\\Users\\rylle\\Downloads\\dadosDosClientes\\dados.csv");
+    Path arquivo = Paths.get("D:\\dadosDosClientes\\dados.csv");
     ClienteRepository clienteRepository;
     DadosDoCliente dadosDoCliente;
 
@@ -215,9 +215,6 @@ public class RegistrarEntrada extends VBox {
         clienteRepository.gravarCliente(dadosDoCliente);
 
     }
-
-
-
 }
 
 

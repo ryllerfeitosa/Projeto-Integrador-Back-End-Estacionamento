@@ -6,14 +6,13 @@ import br.senai.sp.jandira.projetointegradorbackendestacionamento.ui.Pagamentos;
 import br.senai.sp.jandira.projetointegradorbackendestacionamento.ui.RegistrarEntrada;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -25,8 +24,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-
 public class TelaPrincipal extends Application {
+
+    ListView<DadosDoCliente> listarCarros; // Tipar o ListView
+
+    // Criar instância do repositório
+    private ClienteRepository clienteRepository = new ClienteRepository();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -76,8 +79,10 @@ public class TelaPrincipal extends Application {
 
 
         // Criar o tableview para visualizar o nome, modelo, placa, hora de entrada
+        listarCarros = new ListView<>();
 
-
+        // Chamada da função para carregar os dados
+        carregarDadosNoListView();
 
         VBox vboxDosBotoes = new VBox();
 
@@ -199,12 +204,23 @@ public class TelaPrincipal extends Application {
         vboxDosBotoes.getChildren().addAll(cadastrar, registrarSaida, boxbotaoSair);    //Adicionando os botoes na vBoxDosBotoes
         vboxDosBotoes.setSpacing(50);
         root.getChildren().addAll(header, main);
-        listaDeVeiculos.getChildren().addAll(headerListaDeVeiculos);
+        listaDeVeiculos.getChildren().addAll(headerListaDeVeiculos, listarCarros);
 
 
         stage.setTitle("Estacionamento");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void carregarDadosNoListView() {
+        // 1. Obter a lista de objetos DadosDoCliente do repositório
+        List<DadosDoCliente> clientes = clienteRepository.listarTodos();
+
+        // 2. Converter a lista Java simples para uma ObservableList do JavaFX
+        ObservableList<DadosDoCliente> observableClientes = FXCollections.observableArrayList(clientes);
+
+        // 3. O parâmetro que você precisa dar ao ListView é a ObservableList!
+        listarCarros.setItems(observableClientes);
     }
 
     //Configurando funções dos botões
